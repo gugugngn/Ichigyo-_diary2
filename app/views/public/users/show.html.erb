@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="card mx-auto mt-4 shadow-lg" style="max-width: 900px;">
+    <%= render "name", user: @user %>
+    <%= render "info", user: @user %>
+    <div class='row justify-content-center py-2'>
+      <% @three_days_received_messages.each do |message| %>
+        <p class="border p-2">
+          <%= l message.created_at, format: :short %>
+          <%= message.message_text.content  %>
+          <%= link_to user_path(message.sender) do %>
+            <%= message.sender.name %>さん
+          <% end %>
+          <% if message.sender == current_user %>
+            <%= link_to "削除", user_message_path(message), method: :delete %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+    <div class='row justify-content-center py-2'>
+      <% unless @user == current_user %>
+        <%= render "public/messages/form", reciever: @user %>
+      <% end %>
+    </div>
+    <h5 class="mx-auto">⚪︎過去の日記たち⚪︎</h5>
+    <% @posts.each do |post| %>
+      <h5 class="ml-4"><%= l post.created_at, format: :short %></h5>
+      <%= render "public/posts/photo_or_mood_diary", post: post %>
+    <% end %>
+    <div class="mx-auto">
+      <%= paginate @posts %>
+    </div>
+  </div>
+</div>

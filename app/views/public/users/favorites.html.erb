@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="card mx-auto mt-4 shadow-lg" style="max-width: 900px;">
+    <% if @favorite_posts.any? %>
+      <% @favorite_posts.each do |post| %>
+        <div class="index-item">
+          <div class="name-box">
+            <%= link_to user_path(post.user) do %>
+              <%= render "name", user: post.user %>
+            <% end %>
+          </div>
+          <div class="index-box">
+            <%= link_to post_path(post) do %>
+              <%= render "public/posts/mood_background_diary", post: post %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h4>いいねした投稿はありません</h4>
+    <% end %>
+    <div class ="mx-auto">
+      <%= paginate @favorite_posts %>
+    </div>
+  </div>
+</div>

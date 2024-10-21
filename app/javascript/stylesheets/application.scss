@@ -1,0 +1,330 @@
+@use '~bootstrap/scss/bootstrap';
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html body {
+  background-color: #fff;
+}
+
+a{
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #9ea5c2;
+}
+
+.logo, .logo a{
+    font-family: "SUSE", sans-serif;
+    font-size: 30px;
+    color: #c6dbee;
+    text-shadow: 3px 3px 5px #a0a7c5;
+    font-weight: bold;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.nav-list-item {
+  display: flex;
+  height: 50px;
+  color: black;
+  margin: 15px;
+  align-items: center;
+  font-size: 20px;
+}
+
+
+.sidebar{
+  position: sticky;
+  top: 0px;
+  border-right: 2px solid #c0c0c0;
+  flex-grow: 1;
+  height: 100vh;
+}
+
+
+
+/*-----------------------------------トップ画面ここから---------------------------------------*/
+.top-content{
+ background-image: url("../images/top-image.jpg");
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  opacity: 0.8;
+}
+
+  /* 中央寄せの内容を囲むカスタムクラス */
+.central-content {
+  color: rgba(255, 255, 255, 0.7); /* テキストを白く */
+  font-size: 200px;
+  animation: fadeInText 4s forwards;  /* 4秒でフェードイン */
+}
+
+.btn-top {
+  background-color: rgba(255, 255, 255, 0.7); /* 白の半透明 */
+  padding: 10px 20px; /* パディングを調整 */
+  margin-bottom: 10px;
+  border-radius: 5px; /* 角を丸く */
+  font-size: 20px; /* 文字サイズ */
+  text-align: center; /* 文字を中央に */
+  width: 50%;
+  transition: background-color 0.3s ease; /* ホバー時のエフェクト */
+}
+
+.btn-top:hover {
+  background-color: rgba(255, 255, 255, 0.9); /* ホバー時に白を少し濃く */
+  color: #343a40; /* ホバー時に文字を少し濃いグレーに */
+}
+
+  /* フェードインアニメーション */
+  @keyframes fadeInText {
+    0% {
+      color: transparent;
+      transform: translateY(20px); /* 下から浮き上がる動き */
+      opacity: 0; /*要素を完全に表示*/
+    }
+    100% {
+      color: white; /* 浮き出たときの文字色 */
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .btn-container .btn {
+    width: 300px; /* ボタンの幅 */
+    align-self: center; /* ボタンを中央揃え */
+  }
+
+  .img-with-border {
+  border: 1px solid #c8c2c6; /* 枠線の幅と色を指定 */
+  border-radius: 5px; /* 枠線の角を丸める場合は設定 */
+}
+
+
+  .carousel-control-prev {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+  .carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/*-------------------------------------トップ画面ここまで-----------------------------------------*/
+
+
+/*--------------------------------ユーザーネームと画像ここから------------------------------------*/
+.index-item{
+  overflow: hidden;
+}
+
+.name-box{
+  float: left;
+  width: 20%;
+}
+
+.index-box{
+  float: left;
+  width: 70%;
+}
+/*--------------------------------ユーザーネームと画像ここまで------------------------------------*/
+
+/*-----------------------------------１行日記の本文ここから---------------------------------------*/
+.mood-details {
+  text-align: center; /* アイテムを中央揃えにする（任意） */
+}
+
+.mood-item {
+  margin-right: 10px; /* アイテム間のスペースを指定 */
+}
+
+.mood-name {
+  font-weight: bold;
+}
+
+.mood-container {
+  display: flex;
+  justify-content: center; /* 中央に配置 */
+  align-items: center;     /* 中央に配置 */
+  height: 150px;           /* 必要に応じて高さを調整 */
+  border-radius: 8px;      /* 角丸 */
+  overflow: hidden;        /* コンテンツがはみ出さないように設定 */
+}
+
+.post-body {
+  color: white;            /* 背景と対比する文字色 */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.1); /* 背景を透過して本文を強調 */
+  border-radius: 5px;      /* 本文の背景を角丸にする場合 */
+  max-width: 90%;          /* コンテンツの幅を制限して余白を確保 */
+}
+/*-----------------------------------１行日記の本文ここまで---------------------------------------*/
+
+/*-------------------------------投稿詳細画面の画像の設定ここから---------------------------------*/
+
+.background-image-container {
+  position: relative; /* 子要素の位置を相対的に配置 */
+}
+
+.background-image {
+  width: auto; /* 親要素に合わせて画像を引き伸ばす */
+  max-width: 100%;
+  height: auto; /* 親要素に合わせて画像を引き伸ばす */
+  max-height: 400px;
+  border-radius: 5px;
+}
+
+.overlay-content {
+  position: absolute; /* コンテンツを絶対配置 */
+  top: 50%; /* 垂直中央に配置 */
+  left: 50%; /* 水平中央に配置 */
+  transform: translate(-50%, -50%); /* 中央に配置するためのオフセット調整 */
+  color: white; /* テキストの色を白に設定 */
+  text-align: center; /* テキストを中央に配置 */
+  padding: 10px; /* テキストの周りにパディングを追加 */
+  background-color: rgba(0, 0, 0, 0.2); /* テキストの背景に半透明の黒色を追加して視認性を向上 */
+  border-radius: 8px; /* 角を丸める */
+  min-width: 200px;
+}
+/*-------------------------------投稿詳細画面の画像の設定ここまで---------------------------------*/
+
+/*----------------------------------気分マークの設定ここから--------------------------------------*/
+.mood-color{
+  padding: 6px;
+  border-radius: 9px;
+  color: #fff;
+}
+
+.mood-content{
+  // display: flex;
+  // flex-wrap: wrap;
+}
+
+/*----------------------------------気分マークの設定ここまで--------------------------------------*/
+
+/*------------------------------------マイページここから----------------------------------------*/
+.original-border{
+  border-top: 5px solid #e4dfef;
+  border-bottom: 5px solid #e4dfef;
+  margin-bottom: 10px;
+  width: 85%;
+}
+
+.received-border, .sender-border{
+  border-top: 5px solid #e3ecf8;
+  border-bottom: 5px solid #e3ecf8;
+  margin-bottom: 10px;
+  width: 85%;
+  height: 100px;
+  overflow-y: scroll;
+}
+
+.random-pickup-border{
+  border-top: 5px solid #c6dbee;
+  border-bottom: 5px solid #c6dbee;
+  width: 85%;
+  text-align: center;
+}
+
+/*------------------------------------マイページここまで----------------------------------------*/
+
+
+/*-------------------------------ページネーションここから------------------------------------*/
+.pagination>li>a {
+  border: none; /*枠線をなくす*/
+  color: #696969; /*文字の色を変える*/
+}
+
+/* 表示しているページ番号のデザイン */
+.pagination>.active>a {
+  background: #93c9ff !important; /*背景の色を変える*/
+  border-radius: 15px; /*角を丸くする*/
+}
+
+/*ホバー時のデザイン*/
+.pagination>li>a:hover {
+  border-radius: 15px; /*角を丸くする*/
+}
+
+/*-------------------------------ページネーションここまで------------------------------------*/
+
+// 再入力時のレイアウト崩れを防ぐ
+.field_with_errors {
+  position: relative;
+  flex: 1 1 auto;
+
+}
+
+// スマホサイズ (最大 768px) の時にサイドバーをフッターに固定
+@media (max-width: 768px) {
+
+  p {
+    font-size: 12px;
+  }
+
+ .delete-link {
+    font-size: 12px;
+  }
+
+ .btn {
+   font-size: 12px;
+   padding: 5px 5px;
+ }
+
+  .sidebar {
+    position: fixed !important; /* 画面下に固定 */
+    bottom: 0 !important;
+    left: 0; /* 左端に固定 */
+    width: 100%; /* 横幅を全体に広げる */
+    height: 50px; /* 高さを設定 */
+    z-index: 100;
+    background-color: white;
+    border-right: none;
+    border-bottom: 1px solid #c0c0c0;
+  }
+
+  .nav-list-item {
+    display: inline-block;
+    height: 50px;
+    color: black;
+    margin: 15px;
+  }
+
+  .central-content {
+    font-size: 150px;
+  }
+
+  /* メインコンテンツの上にサイドバーが重ならないように下部に余白を追加 */
+  main {
+    padding-top: 60px;
+  }
+
+  .name-box{
+    width: 100%;
+  }
+
+  .index-box{
+    width: 100%;
+  }
+
+  /*投稿フォーム*/
+  .shadow-lg {
+    box-shadow: none !important;
+    }
+
+  .card {
+    border: none !important;
+  }
+
+}

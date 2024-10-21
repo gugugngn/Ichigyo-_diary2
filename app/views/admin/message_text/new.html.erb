@@ -1,0 +1,22 @@
+<div class='container'>
+  <div class="card mx-auto mt-4 shadow-lg" style="max-width: 900px;">
+    <div class="mx-auto py-4">
+      <p><strong>メッセージ一覧</strong></p>
+      <% @message_texts.each do |message_text| %>
+        <p>
+          <%= message_text.content %>
+          <%= link_to "削除", admin_message_text_path(message_text), method: :delete, class: "btn btn-light m-1" %>
+        </p>
+      <% end %>
+      <div class="mx-auto py-4">
+        <%= form_with model: @message_text, url: admin_message_text_index_path, local: true do |f| %>
+          <strong><%= f.label :content, "新しくメッセージの選択肢を作成" %></strong>
+          <%= f.text_area :content, class: 'form-control' %>
+          <div class="d-flex justify-content-end pt-2">
+            <%= f.submit class: 'btn btn-outline-dark' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

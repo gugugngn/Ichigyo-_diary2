@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IchigyoDiary</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <script src="https://kit.fontawesome.com/76f4db3613.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <%= stylesheet_link_tag 'application' %>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+          <% if current_user&.guest_user? %>
+            <h1 class="d-none d-lg-inline logo mx-3">1Gyo diary</h1>
+          <% else %>
+            <h1 class="d-none d-lg-inline logo mx-3">
+              <%= link_to "1Gyo diary", root_path %>
+            </h1>
+          <% end %>
+          <%= render "layouts/sideber" %>
+        </nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10">
+          <div class="row justify-content-center">
+            <% flash.each do |message_type, message| %>
+              <div class="flash-message <%= message_type %>"><%= message %></div>
+            <% end %>
+          </div>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

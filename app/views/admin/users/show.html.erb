@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="card mx-auto mt-4 shadow-lg" style="max-width: 900px;">
+    <div class="mx-auto py-4">
+      <%= render "public/users/name",  user: @user %>
+      <div class="text-center py-2 ">
+        <%= link_to "退会させる",admin_user_path(@user),method: :delete,class: "btn btn-danger", "data-confirm"=> "本当に退会させますか？" %>
+      </div>
+      <div class ="pl-3">
+        <p>送ったコメント</p>
+        <% if @comments.present? %>
+          <% @comments.each do |comment| %>
+           <p><%= comment.body %>　⇦ <%= comment.post.user.name %>さんに
+           <%= link_to "削除",post_comment_path(comment.post, comment),method: :delete,class: "btn btn-outline-danger", "data-confirm"=> "本当に削除しますか？" %>
+           </p>
+          <% end %>
+        <% else %>
+          <p>送ったコメントはありません。</p>
+        <% end %>
+      </div>
+      <!--過去の日記-->
+      <% @posts.each do |post| %>
+        <% if post.post_image.attached? %>
+          <!--写真背景の日記-->
+          <div class="mx-auto">
+            <%= link_to admin_post_path(post) do %>
+              <div class="mb-2 background-image-container">
+                <%= image_tag post.get_post_image, class: "background-image" %>
+                <div class="overlay-content">
+                  <p><%= l post.created_at, format: :long %>の<%= post.user.name %>さんの１行日記</p>
+                  <p><%= post.body %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <!--気分カラー背景の日記-->
+          <%= link_to admin_post_path(post) do %>
+            <div class="mood-container m-md-3" style="background: <%= post.background_color %>;">
+              <div class="post-body">
+                <p><%= l post.created_at, format: :long %>の<%= post.user.name %>さんの１行日記</p>
+                <p><%= post.body %></p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= paginate @posts %>
+    </div>
+  </div>
+</div>
