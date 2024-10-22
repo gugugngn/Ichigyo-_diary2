@@ -30,9 +30,7 @@ class Public::PostsController < ApplicationController
        redirect_to post_path(@post), alert: '日記を投稿しました。本日もお疲れ様でした！'
     else
       @current_date = Time.zone.today
-      respond_to do |format|
-        format.js { render 'error' } # エラーメッセージをJavaScriptに返す
-      end
+      render :new  # :newを指定して新規作成フォームを再表示
     end
   end
 
@@ -48,9 +46,7 @@ class Public::PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to post_path(@post), notice: "更新しました。"
     else
-      respond_to do |format|
-        format.js { render 'error' } # エラーメッセージをJavaScriptに返す
-      end
+      render :edit
     end
   end
 
