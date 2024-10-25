@@ -15,7 +15,7 @@
       <div class="mb-2 background-image-container">
         <%= image_tag post.get_post_image, class: "background-image" %>
         <div class="overlay-content">
-          <p><%= l post.created_at, format: :long %>の<%= post.user.name %>さんの１行日記</p>
+          <p><%= l post.published_at || post.created_at, format: :long %>の<%= post.user.name %>さんの１行日記</p>
           <p><%= post.body %></p>
         </div>
       </div>

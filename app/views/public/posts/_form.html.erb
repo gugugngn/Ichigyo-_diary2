@@ -1,45 +1,46 @@
-<%= form_with model: post, url: url, local: true do |f| %>
-  <div class="form-group">
-    <p class= "form-title" style="float: left;">日記本文 <strong style="color: red;">[必須]</strong></p>
-    <p class="js-text-count" style="float: right;"></p>
-    <%= f.text_field :body, class: 'form-control js-text' %>
-  </div>
-  <div class="form-group">
-    <p>本日の一枚</p>
-    <%= f.file_field :post_image, accept: "image/jpg" %>
-  </div>
-  <div class="form-group">
-    <%= f.collection_check_boxes(:mood_ids, Mood.all, :id, :name) do |b| %>
-      <% mood = Mood.find(b.value) %>
-      <label class="mood-color" style="background-color: <%= mood.color %>; padding: 6px; border-radius: 9px; color: #fff;">
-        <%= b.check_box class: "mood_checkbox" %>
-        <%= b.label { b.text } %>
-      </label>
-    <% end %>
-  </div>
+<div class="form-group">
+  <p class= "form-title" style="float: left;">日記本文 <strong style="color: red;">[必須]</strong></p>
+  <p class="js-text-count" style="float: right;"></p>
+  <%= f.text_field :body, class: 'form-control js-text' %>
+</div>
+<div class="form-group">
+  <p>本日の一枚</p>
+  <%= f.file_field :post_image, accept: "image/jpg" %>
+</div>
+<div class="form-group">
+  <%= f.collection_check_boxes(:mood_ids, Mood.all, :id, :name) do |b| %>
+    <% mood = Mood.find(b.value) %>
+    <label class="mood-color" style="background-color: <%= mood.color %>; padding: 6px; border-radius: 9px; color: #fff;">
+      <%= b.check_box class: "mood_checkbox" %>
+      <%= b.label { b.text } %>
+    </label>
+  <% end %>
+</div>
+<% unless params[:current_tab] == 'past_posts' %>
   <div class="form-group">
     <%= f.label "明日の自分へ" %>
     <%= f.text_area :message, class: 'form-control' %>
   </div>
-  <div class="form-group">
-    <%= f.radio_button :is_public, 'true' %> 
-    <%= f.label :is_public_true, "公開" %>
-    <%= f.radio_button :is_public, 'false' %>
-    <%= f.label :is_public_false, "非公開" %>
-  </div>
-  <div class="d-flex justify-content-between pb-3">
-    <% if action_name == "edit" %>
-      <div class="d-flex justify-content-start">
-      	<%= link_to '詳細画面に戻る', post_path(@post), class: "btn btn-outline-info" %>
-      </div>
-      <div class="d-flex justify-content-end">
-        <%= f.submit class: 'btn btn-outline-secondary' %>
-        <p class="pl-2"><%= link_to "削除する", post_path(@post), class: "btn btn-outline-danger", method: :delete %></p>
-      </div>
-  	<% else %>
-      <div class="d-flex justify-content-end">
-        <%= f.submit class: 'btn btn-outline-secondary' %>
-      </div>
-    <% end %>
-  </div>
 <% end %>
+<div class="form-group">
+  <%= f.radio_button :is_public, 'true' %> 
+  <%= f.label :is_public_true, "公開" %>
+  <%= f.radio_button :is_public, 'false' %>
+  <%= f.label :is_public_false, "非公開" %>
+</div>
+<div class="d-flex justify-content-between pb-3">
+  <% if action_name == "edit" %>
+    <div class="d-flex justify-content-start">
+      <%= link_to '詳細画面に戻る', post_path(@post), class: "btn btn-outline-info" %>
+    </div>
+    <div class="d-flex justify-content-end">
+      <%= f.submit class: 'btn btn-outline-secondary' %>
+      <p class="pl-2"><%= link_to "削除する", post_path(@post), class: "btn btn-outline-danger", method: :delete %></p>
+    </div>
+  <% else %>
+    <div class="d-flex justify-content-end">
+      <%= f.submit class: 'btn btn-outline-secondary' %>
+    </div>
+  <% end %>
+</div>
+<%= hidden_field_tag :current_tab, params[:current_tab] %>

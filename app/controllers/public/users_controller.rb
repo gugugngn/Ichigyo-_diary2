@@ -5,7 +5,8 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @posts = @user.posts.order(created_at: :desc).page(params[:page])
+    @posts = @user.posts.select('*, COALESCE(published_at, created_at) AS post_date')
+                        .order('post_date DESC').page(params[:page])
     @random_post = @user.posts.shuffle.first
     yesterday = Time.zone.today - 1
     @yesterday_post = @user.posts.find_by(created_at: yesterday.all_day)

@@ -8,6 +8,7 @@ class Post < ApplicationRecord
   
   validates :body, presence: true, length: { maximum: 40 }
   validate :one_post_per_day, on: :create
+  validate :published_at_cannot_be_in_the_future, on: :create
   validates :post_image, content_type: {in:[:png, :jpg, :jpeg], message: "はpng, jpg, jpegいずれかの形式にして下さい"}
 
 
@@ -49,8 +50,16 @@ class Post < ApplicationRecord
 
   # 1日1投稿のバリデーション↓
   def one_post_per_day
-    if Post.where(user_id: user_id, created_at: Time.zone.today.all_day).exists?
-      errors.add(:base, "本日は既に投稿済みです")
+    check_date = published_at || created_at
+    if Post.where(user_id: user_id, published_at: check_date.all_day).exists?
+      errors.add(:base, "既に投稿済みです")
+    end
+  end
+
+  # 未来の日付で投稿できないようにバリデーション↓
+  def published_at_cannot_be_in_the_future
+    if published_at.present? && published_at > Time.current
+      errors.add(:base, "未来の日付で投稿することはできません")
     end
   end
   

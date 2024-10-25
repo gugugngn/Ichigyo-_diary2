@@ -1,7 +1,9 @@
 <div class="card mx-auto mt-4 shadow-lg" style="max-width: 900px;">
   <div class="mx-auto p-lg-4">
-		<h4>投稿の編集</h4>
-		<%= render 'layouts/errors', obj: @post %>
-		<%= render 'form', post: @post, url: post_path(@post) %>
-	</div>
+    <h4>投稿の編集</h4>
+	  <%= render 'layouts/errors', obj: @post %>
+	    <%= form_with(model: @post, url: post_path(@post)) do |f| %>
+          <%= render 'form', f: f %>
+        <% end %>
+  </div>
 </div>

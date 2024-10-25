@@ -2,7 +2,30 @@
   <div class="mx-auto p-lg-4">
     <h4>日記を書く</h4>
       <%= render 'layouts/errors', obj: @post %>
-      <p><%= @current_date.strftime("%-m月%-d日") %></p>
-      <%= render 'form', post: @post, url: posts_path %>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <%= link_to '本日分', '#section1', class: 'nav-link active', data: { toggle: 'tab' } %>
+        </li>
+        <li class="nav-item">
+          <%= link_to '過去分', '#section2', class: 'nav-link', data: { toggle: 'tab' } %>
+        </li>
+      </ul>
+      <div class="tab-content mt-3">
+        <div id="section1" class="tab-pane fade show active">
+          <p><%= @current_date.strftime("%-m月%-d日") %></p>
+          <!-- 本日分のフォーム -->
+          <%= form_with(model: @post, url: posts_path) do |f| %>
+            <%= render 'form', f: f %>
+          <% end %>
+        </div>
+        <div id="section2" class="tab-pane fade">
+          <%= form_with(model: @post, url: posts_path) do |f| %>
+            <!-- 過去分ではpublished_atの入力欄を表示 -->
+            <%= f.label :published_at, "日付" %>
+            <%= f.date_select :published_at %>
+            <%= render 'form', f: f %>
+          <% end %>
+        </div>
+      </div>
   </div>
 </div>

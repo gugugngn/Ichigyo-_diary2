@@ -9,7 +9,7 @@
 </div>
 <div class="mood-container m-md-3" style="background: <%= post.background_color %>;">
   <div class="post-body">
-    <p><%= l post.created_at, format: :long %>の<%= post.user.name %>さんの１行日記</p>
+    <p><%= l post.published_at || post.created_at, format: :long %>の<%= post.user.name %>さんの１行日記</p>
     <p><%= post.body %></p>
   </div>
 </div>

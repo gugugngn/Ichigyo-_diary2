@@ -9,9 +9,11 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.public_posts.order(created_at: :desc).page(params[:page])
-    @grouped_posts = @posts.group_by { |post| post.created_at.to_date }
-  end
+    @posts = Post.select('*, COALESCE(published_at, created_at) AS post_date')
+                  .order('post_date DESC').page(params[:page])
+
+    @grouped_posts = @posts.group_by { |post| (post.published_at || post.created_at).to_date }
+end
 
   def show
     @post = Post.find(params[:id])
@@ -26,10 +28,12 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+    @post.published_at ||= Time.zone.now  # published_atが空なら現在日時を設定
     if @post.save
-       redirect_to post_path(@post), alert: '日記を投稿しました。本日もお疲れ様でした！'
+      redirect_to post_path(@post), alert: '日記を投稿しました。本日もお疲れ様でした！'
     else
       @current_date = Time.zone.today
+      @current_tab = params[:current_tab] || 'today'
       render :new  # :newを指定して新規作成フォームを再表示
     end
   end
@@ -66,6 +70,6 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body, :post_image, :message, :is_public, mood_ids: [])
+    params.require(:post).permit(:body, :post_image, :message, :is_public, :published_at, mood_ids: [])
   end
 end
