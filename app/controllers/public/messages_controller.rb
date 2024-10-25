@@ -19,9 +19,14 @@ class Public::MessagesController < ApplicationController
 
 
   def destroy
-    message = Message.find(params[:user_id])
-    message.destroy
-    redirect_to request.referer
+    message = Message.find(params[:id])
+    
+    if message.sender_id == current_user.id
+      message.destroy
+      redirect_to request.referer, notice: 'メッセージを削除しました'
+    else
+      redirect_to request.referer, alert: 'メッセージを削除する権限がありません'
+    end
   end
   
   private
