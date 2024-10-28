@@ -32,10 +32,15 @@ class Post < ApplicationRecord
   end
   
   # いいねが重複しないように定義↓
-  def favorited_by?(user)
+  def favorited?(user)
     favorites.exists?(user_id: user.id)
   end
   
+  # ユーザーのお気に入り投稿一覧を取得
+  scope :favorited_by, ->(user_id) {
+    joins(:favorites).where(favorites: { user_id: user_id }).order('favorites.created_at DESC')
+  }
+
    # 検索の際に完全一致と部分一致で検索がかかるように↓
   def self.search_for(content,method)
     if method == 'perfect'
