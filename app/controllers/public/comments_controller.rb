@@ -9,7 +9,7 @@ class Public::CommentsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
+    @post = Post.find(params[:post_id])     # インスタンス変数の理由：非同期通信させるためにdestroy.js.erで参照されるため
     comment = @post.comments.find(params[:id])
     
     #ユーザー側と管理者側でコメント削除を可能にするため↓
