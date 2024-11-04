@@ -200,16 +200,33 @@ p {
 /*-------------------------------投稿詳細画面の画像の設定ここまで---------------------------------*/
 
 /*----------------------------------気分マークの設定ここから--------------------------------------*/
-.mood-color{
+.mood-color {
+  position: relative;
+  top: 0;
   padding: 6px;
   border-radius: 9px;
   color: #fff;
+  box-shadow: 0 5px #4c0f1340;
+  cursor: pointer;
 }
 
-.mood-content{
-  // display: flex;
-  // flex-wrap: wrap;
+/* チェックボックスを非表示にする */
+.mood_checkbox {
+
 }
+
+/* ホバー時のスタイル */
+.mood-color:hover {
+  top: 5px; /* 元の位置から9px分下げる */
+  box-shadow: 0 0 #4C0F13; /* 影を0pxにする */
+}
+
+/* チェックボックスがチェックされたときのスタイル */
+.mood_color:checked + .mood-color {
+  top: 5px; /* クリック時に位置を下げる */
+  box-shadow: 0 0 #4C0F13; /* 影を0pxにする */
+}
+
 
 /*----------------------------------気分マークの設定ここまで--------------------------------------*/
 
