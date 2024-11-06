@@ -212,7 +212,7 @@ p {
 
 /* チェックボックスを非表示にする */
 .mood_checkbox {
-
+  display: none;
 }
 
 /* ホバー時のスタイル */
@@ -222,7 +222,7 @@ p {
 }
 
 /* チェックボックスがチェックされたときのスタイル */
-.mood_color:checked + .mood-color {
+.mood_checkbox:checked + .mood-color {
   top: 5px; /* クリック時に位置を下げる */
   box-shadow: 0 0 #4C0F13; /* 影を0pxにする */
 }
